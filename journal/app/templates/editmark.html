@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2 class="p-4 mx-5">Редактирование оценки</h2>
+
+<form method="post" action="/editmark/{{ grade.id }}">
+    <div class="container">
+        <div class="row mb-3 input-group">
+            <label for="human" class="col-sm-2 col-form-label">Студент</label>
+            <select name="select_student">
+                {% for student in students %}
+                <option  name="human" value="{{ student.id }}">{{ student.lastname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="row mb-3 input-group">
+            <label for="name" class="col-sm-2 col-form-label">Дисциплина</label>
+            <select name="select_discipline">
+                {% for educationplan in educationplans %}
+                <option  name="{{ educationplan.id }}" value="{{ educationplan.id }}">{{ educationplan.discipline }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="row mb-3 input-group">
+            <label for="name" class="col-sm-2 col-form-label">Год</label>
+            <input type="text" class="form-control" id="year" name="year" value="{{ grade.year }}">
+        </div>
+        <div class="row mb-3 input-group">
+            <label for="name" class="col-sm-2 col-form-label">Оценка</label>
+            <input type="text" class="form-control" id="mark" name="mark" value="{{ grade.mark }}">
+        </div>
+    </div>
+
+    <div class="px-2 pt-3">
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</form>
+
+{% endblock %}

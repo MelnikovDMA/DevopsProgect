@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row p-4 mx-5">
+    <h2 class="col-10">Список студентов</h2>
+    <a class="btn btn-primary col-2" href="{{ url_for('createmark') }}">Добавить оценку</a>
+</div>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    №
+                </th>
+                <th>
+                    Год
+                </th>
+                <th>
+                    Студент
+                </th>
+                <th>
+                    Дисциплина
+                </th>
+                <th>
+                    Оценка
+                </th>
+                <th>
+                    Действие
+                </th>
+            </tr>        
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+            <tr>    
+                <td>
+                    {{ grade.id }}
+                </td>
+                <td>
+                    {{ grade.year }}
+                </td>
+                <td>
+                    {{ students[grade.student_id].lastname }}
+                </td>
+                <td>
+                    {{ educationplans[grade.discipline_id].discipline }}
+                </td>
+                <td>
+                    {{ grade.mark }}
+                </td>   
+                <td>
+                    <a class="btn btn-primary" href="{{ url_for('editmark', id=grade.id) }}">Редактировать</a>
+                </td>                 
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
