@@ -3,6 +3,8 @@ services:
   web:
     build: .
     command: python app.py
+    environment:
+      - FLASK_APP=app.py
     volumes:
       - ./app:/code
     ports:
@@ -10,6 +12,16 @@ services:
     depends_on:
       - db
   db:
-    image: postgres
+    image: postgres:13.0-alpine
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: devopsdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: devops
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./app/.env
+volumes:
+  postgres_data:

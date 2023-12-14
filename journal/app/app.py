@@ -77,7 +77,7 @@ class Gradebook(db.Model):
 
 @app.route('/')
 def index():
-    # fill_db()
+    #fill_db()
     return render_template('index.html' )
 
 @app.route('/schetchik', methods=['GET', 'POST'])
@@ -243,6 +243,27 @@ def editmark(id):
     educationplans_arr = PlanOfStudy.query.all()
 
     return render_template('editmark.html', title='Редактирование оценки', grade=grade, students=students_arr, educationplans = educationplans_arr)
+    
+def fill_db():
+    users = [
+        Student(lastname='Иванов', name='Иван', surname='Иванович', admission_year=2018, group=101, education_form='дневная'),
+        Student(lastname='Петрова', name='Анна', surname='Сергеевна', admission_year=2020, group=203, education_form='вечерняя'),
+         ]
+
+    for user in users:
+        db.session.add(user)
+    db.session.commit()
+    
+def fill_db2():
+    data = [
+        PlanOfStudy(speciality="Информатика", discipline="Программирование", semester=3, hours=60, exam_or_test="Экзамен"),
+        PlanOfStudy(speciality="Математика", discipline="Математический анализ", semester=2, hours=45, exam_or_test="Зачет"),
+        ]
+        
+    for i in data:
+        db.session.add(i)
+    db.session.commit()
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
